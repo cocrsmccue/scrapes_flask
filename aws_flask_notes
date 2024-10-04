@@ -1,0 +1,32 @@
+#On CODE Changes/updates just reload gunicorn3 from home directory
+
+# Where the service is located
+$ /etc/systemd/system == scrapes_flask.service
+
+
+# Check the status of the service
+sudo systemctl status scrapes_flask.service
+
+# Restart the service if needed
+sudo systemctl restart scrapes_flask.service
+
+
+
+
+
+
+
+
+###### This was copied from ubuntu vvvv ########
+
+$ sudo service gunicorn3 reload 
+
+
+#This is the failsafe to restart the nginx servers
+restart nginx
+    cd /etc/nginx/sites-enabled$ sudo service nginx restart
+
+go to system file
+    cd /etc/systemd/system$ sudo systemctl daemon-reload
+    /etc/systemd/system$ sudo service gunicorn3 start
+    /etc/systemd/system$ sudo service gunicorn3 status
