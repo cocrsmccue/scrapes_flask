@@ -76,7 +76,7 @@ platformdirs==4.3.2
 ply==3.11
 prettytable==0.7.2
 prometheus_client==0.20.0
-prompt-toolkit>=3.0.24,<3.0.39
+prompt-toolkit>=3.0.24,<3.1.0
 psutil==6.0.0
 ptyprocess==0.7.0
 pure_eval==0.2.3
