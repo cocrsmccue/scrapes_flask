@@ -19,7 +19,7 @@ sudo ./aws/install
 rm -rf aws awscliv2.zip
 aws --version
 
-# Step 3: Clone or update repo as ec2-user (to preserve permissions)
+# Step 3: Clone or update repo as ec2-user (so ownership is correct)
 sudo -u ec2-user bash << 'EOF'
 cd /home/ec2-user
 
@@ -37,9 +37,9 @@ EOF
 # Step 4: Install Python requirements system-wide
 cd /home/ec2-user/scrapes_flask
 
-# Optional: remove problematic packages if not already removed
-sed -i '/awscli==2/d' requirements.txt || true
-sed -i '/gpg==1.15.1/d' requirements.txt || true
+# Optional: remove problematic packages if still present
+sed -i '/awscli==/d' requirements.txt || true
+sed -i '/gpg==/d' requirements.txt || true
 
 if [ -f "requirements.txt" ]; then
   echo "Installing Python dependencies system-wide..."
@@ -54,7 +54,13 @@ echo "Copying config files..."
 sudo cp config/nginx.conf /etc/nginx/nginx.conf
 sudo cp config/scrapes_flask.service /etc/systemd/system/scrapes_flask.service
 
-# Step 6: Enable and start services
+# Step 5.5: Fix permissions so Nginx can access Gunicorn socket
+echo "Fixing permissions on scrapes_flask for socket access..."
+sudo chown -R ec2-user:nginx /home/ec2-user/scrapes_flask
+sudo chmod 755 /home/ec2-user
+sudo chmod 775 /home/ec2-user/scrapes_flask
+
+# Step 6: Start and enable services
 echo "Starting Nginx..."
 sudo systemctl enable nginx
 sudo systemctl restart nginx
@@ -65,3 +71,4 @@ sudo systemctl enable scrapes_flask
 sudo systemctl restart scrapes_flask
 
 echo "=== Launch script completed successfully at $(date) ==="
+
