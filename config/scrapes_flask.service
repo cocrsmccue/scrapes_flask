@@ -1,15 +1,13 @@
-[Unit] 
-Description=Gunicorn instance to serve my Flask app 
-After=network.target 
+[Unit]
+Description=Gunicorn instance to serve my Flask app
+After=network.target
 
-[Service] 
-User=ec2-user 
-Group=nginx 
-WorkingDirectory=/home/ec2-user/scrapes_flask 
-#Environment="PATH=/home/ec2-user/scrapes_flask/venv/bin" 
-#ExecStart=/home/ec2-user/.local/bin/gunicorn --workers 3 --bind unix:scrapes_flask.sock -m 007 app:app 
-ExecStart=/home/ec2-user/.local/bin/gunicorn --workers 8 --bind unix:/home/ec2-user/scrapes_flask/scrapes_flask.sock app:app
+[Service]
+User=ec2-user
+Group=nginx
+WorkingDirectory=/home/ec2-user/scrapes_flask
+ExecStart=/usr/local/bin/gunicorn --workers 8 --bind unix:/home/ec2-user/scrapes_flask/scrapes_flask.sock app:app
 
 
-[Install] 
-WantedBy=multi-user.target 
+[Install]
+WantedBy=multi-user.target
