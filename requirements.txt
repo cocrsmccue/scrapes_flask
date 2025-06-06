@@ -1,6 +1,5 @@
 attrs==24.2.0
 aws-cfn-bootstrap==2.0
-awscli==2.15.30
 awscrt==0.19.19
 Babel==2.9.1
 beautifulsoup4==4.12.3
