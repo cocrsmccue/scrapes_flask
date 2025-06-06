@@ -16,7 +16,8 @@
 # if __name__ == '__main__':
 #     app.run(debug=True)
 
-from flask import Flask, send_file, jsonify, request, render_template, escape, redirect, url_for 
+from flask import Flask, send_file, jsonify, request, render_template, redirect, url_for
+from markupsafe import escape
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
